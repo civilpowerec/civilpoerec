@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
-import { Plus, Building2, MapPin, Calendar, X } from 'lucide-react'
-import Actividades from './Actividades'
+import { Plus, Building2, MapPin, Calendar, X, ChevronRight } from 'lucide-react'
+import ProyectoDetalle from './ProyectoDetalle'
 
 interface Proyecto {
   id: string
@@ -54,9 +54,8 @@ export default function Proyectos() {
 
   if (proyectoActivo) {
     return (
-      <Actividades
-        proyectoId={proyectoActivo.id}
-        proyectoNombre={proyectoActivo.nombre}
+      <ProyectoDetalle
+        proyecto={proyectoActivo}
         onBack={() => setProyectoActivo(null)}
       />
     )
@@ -94,17 +93,16 @@ export default function Proyectos() {
             <div
               key={p.id}
               onClick={() => setProyectoActivo(p)}
-              className="bg-gray-900 border border-gray-800 rounded-xl p-5 hover:border-blue-700 transition-colors cursor-pointer"
+              className="bg-gray-900 border border-gray-800 rounded-xl p-5 hover:border-blue-700 transition-colors cursor-pointer group"
             >
               <div className="flex items-start justify-between mb-3">
                 <h3 className="text-white font-semibold text-lg">{p.nombre}</h3>
-                <span className="bg-green-950 text-green-400 text-xs px-2 py-1 rounded-full">
-                  {p.estado}
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className="bg-green-950 text-green-400 text-xs px-2 py-1 rounded-full">{p.estado}</span>
+                  <ChevronRight size={16} className="text-gray-600 group-hover:text-blue-400 transition-colors" />
+                </div>
               </div>
-              {p.descripcion && (
-                <p className="text-gray-400 text-sm mb-3">{p.descripcion}</p>
-              )}
+              {p.descripcion && <p className="text-gray-400 text-sm mb-3">{p.descripcion}</p>}
               <div className="space-y-1">
                 {p.ubicacion && (
                   <div className="flex items-center gap-2 text-gray-500 text-sm">
@@ -129,10 +127,7 @@ export default function Proyectos() {
           <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6 w-full max-w-md">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-white font-bold text-xl">Nuevo proyecto</h3>
-              <button
-                onClick={() => setShowModal(false)}
-                className="text-gray-400 hover:text-white"
-              >
+              <button onClick={() => setShowModal(false)} className="text-gray-400 hover:text-white">
                 <X size={20} />
               </button>
             </div>
