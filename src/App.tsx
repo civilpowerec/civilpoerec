@@ -1,34 +1,24 @@
-import { useEffect, useState } from 'react'
-import { supabase } from './lib/supabase'
-import Login from './pages/Login'
-import Dashboard from './pages/Dashboard'
+// CivilPowerEc — App.tsx
+// Intervención mínima en Sprint 1.
+// Se agrega BrowserRouter, TenantProvider y el AppRouter nuevo.
+// El código legacy de src/pages/ sigue funcionando por sus propias rutas.
+//
+// NOTA: Si el App.tsx original ya tenía BrowserRouter,
+// este archivo lo reemplaza con un único BrowserRouter en la raíz.
+// Verificar antes de reemplazar.
+
+import { BrowserRouter } from 'react-router-dom'
+import { TenantProvider } from '@/lib/tenant/TenantProvider'
+import { AppRouter } from '@/router/index'
 
 function App() {
-  const [session, setSession] = useState<any>(null)
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      setSession(data.session)
-      setLoading(false)
-    })
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session)
-    })
-
-    return () => subscription.unsubscribe()
-  }, [])
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gray-950 flex items-center justify-center">
-        <p className="text-gray-400">Cargando...</p>
-      </div>
-    )
-  }
-
-  return session ? <Dashboard /> : <Login />
+  return (
+    <BrowserRouter>
+      <TenantProvider>
+        <AppRouter />
+      </TenantProvider>
+    </BrowserRouter>
+  )
 }
 
 export default App
