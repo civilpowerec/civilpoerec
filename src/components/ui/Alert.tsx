@@ -13,15 +13,16 @@ const variantStyles: Record<AlertVariant, string> = {
 interface AlertProps {
   variant?: AlertVariant
   children: React.ReactNode
+  className?: string
+  style?: React.CSSProperties
 }
 
-export function Alert({ variant = 'error', children }: AlertProps) {
+export function Alert({ variant = 'error', children, className, style }: AlertProps) {
   return (
-    <div className={`
-      border border-l-[3px] rounded-[9px] px-3 py-[10px]
-      text-sm font-medium
-      ${variantStyles[variant]}
-    `}>
+    <div
+      className={`border border-l-[3px] rounded-[9px] px-3 py-[10px] text-sm font-medium ${variantStyles[variant]}${className ? ` ${className}` : ''}`}
+      style={style}
+    >
       {children}
     </div>
   )

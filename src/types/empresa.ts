@@ -31,6 +31,20 @@ export interface Empresa extends BaseEntity {
   onboarding_completed: boolean
   onboarding_completed_at: string | null
 }
+export interface CrearEmpresaInput {
+  nombre: string
+  tipo_persona: TipoPersona
+  nombre_representante: string | null
+  tipo_identificacion: TipoIdentificacion
+  numero_identificacion: string | null
+  tipo_proyectos: TipoProyecto[]
+  telefono: string
+  email?: string | null
+  direccion?: string | null
+  ciudad: string
+  provincia?: string | null
+}
+
 export function validarIdentificacion(
   tipo: TipoIdentificacion | string,
   numero: string

@@ -7,7 +7,7 @@
 //   TenantProvider.tsx → contexto React con estado
 //   useTenant.ts       → hook de acceso al contexto
 
-import React, { createContext, useContext, useEffect, useState, useCallback } from 'react'
+import React, { createContext, useEffect, useState, useCallback } from 'react'
 import { supabase } from '@/lib/supabase/client'
 import type { UUID } from '@/types/database'
 import type { RolEmpresa } from '@/types/roles'

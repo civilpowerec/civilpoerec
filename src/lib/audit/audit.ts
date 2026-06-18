@@ -17,7 +17,7 @@ export type AuditAction =
 
 export interface AuditLogInput {
   empresaId: UUID
-  userId: UUID | null
+  userId?: UUID | null
   accion: AuditAction | string
   tabla: string
   registroId?: UUID | null
