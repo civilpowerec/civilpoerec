@@ -103,7 +103,7 @@ export async function getEmpresaDelUsuario(): Promise<{ empresaId: UUID; roles: 
     .eq('estado', 'activo')
     .order('created_at', { ascending: true })
     .limit(1)
-    .single()
+    .maybeSingle()
 
   if (!data) return null
   return { empresaId: data.empresa_id, roles: data.roles }
