@@ -68,11 +68,11 @@ export function OnboardingPage() {
   return (
     <AppLayout title="Configuración inicial">
       <div className="py-4">
-        <h1 className="text-xl font-bold text-[#eeeeff] mb-1">
+        <h1 className="text-xl font-bold text-slate-800 mb-1">
           Configura tu empresa
         </h1>
 
-        <p className="text-xs text-[#9090b0] mb-5">
+        <p className="text-xs text-slate-500 mb-5">
           Completa estos pasos para empezar a usar CivilPowerEc.
         </p>
 

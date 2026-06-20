@@ -119,29 +119,18 @@ export function EquipoPage() {
 
   return (
     <AppLayout title="Equipo">
-      <div style={{ padding: '16px 0', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div className="py-4 flex flex-col gap-6">
 
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div className="flex justify-between items-center gap-3">
           <div>
-            <h1 style={{ margin: 0, fontSize: '20px', fontWeight: 700, color: '#eeeeff' }}>
-              Equipo
-            </h1>
-            <p style={{ margin: '4px 0 0', fontSize: '12px', color: '#9090b0' }}>
+            <h1 className="text-xl font-bold text-slate-800">Equipo</h1>
+            <p className="text-xs text-slate-500 mt-1">
               {miembros.length} miembro{miembros.length !== 1 ? 's' : ''}
             </p>
           </div>
           <button
             onClick={() => { setMostrarFormulario(f => !f); setLinkGenerado(null) }}
-            style={{
-              padding: '10px 16px',
-              borderRadius: '10px',
-              fontSize: '13px',
-              fontWeight: 600,
-              border: 'none',
-              background: '#5b8def',
-              color: '#fff',
-              cursor: 'pointer',
-            }}
+            className="px-4 py-2.5 rounded-xl text-sm font-semibold bg-blue-600 hover:bg-blue-700 text-white cursor-pointer transition-colors flex-shrink-0"
           >
             + Invitar
           </button>
@@ -151,45 +140,19 @@ export function EquipoPage() {
 
         {/* Link generado */}
         {linkGenerado && (
-          <div style={{
-            background: '#082a1a',
-            border: '1px solid #143a22',
-            borderRadius: '10px',
-            padding: '14px',
-          }}>
-            <p style={{ margin: '0 0 8px', fontSize: '12px', fontWeight: 600, color: '#2ecc8a' }}>
-              ✅ Invitación creada — comparte este link
+          <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4">
+            <p className="text-xs font-semibold text-emerald-700 mb-2">
+              Invitación creada — comparte este link
             </p>
-            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-              <code style={{
-                flex: 1,
-                fontSize: '11px',
-                color: '#9090b0',
-                background: '#0f0f1a',
-                padding: '8px',
-                borderRadius: '6px',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                whiteSpace: 'nowrap',
-                display: 'block',
-              }}>
+            <div className="flex gap-2 items-center">
+              <code className="flex-1 text-[11px] text-slate-500 bg-white border border-slate-200 px-2 py-2 rounded-lg overflow-hidden text-ellipsis whitespace-nowrap block min-w-0">
                 {linkGenerado}
               </code>
               <button
                 onClick={() => copiarLink(linkGenerado)}
-                style={{
-                  padding: '8px 12px',
-                  borderRadius: '8px',
-                  fontSize: '12px',
-                  fontWeight: 600,
-                  border: '1px solid #2a2a40',
-                  background: '#161623',
-                  color: '#5b8def',
-                  cursor: 'pointer',
-                  flexShrink: 0,
-                }}
+                className="px-3 py-2 rounded-lg text-xs font-semibold border border-slate-300 bg-white text-blue-600 hover:bg-slate-50 cursor-pointer transition-colors flex-shrink-0"
               >
-                📋 Copiar
+                Copiar
               </button>
             </div>
           </div>
@@ -198,9 +161,7 @@ export function EquipoPage() {
         {/* Formulario de invitación */}
         {mostrarFormulario && (
           <Card>
-            <p style={{ margin: '0 0 12px', fontSize: '14px', fontWeight: 600, color: '#eeeeff' }}>
-              Nueva invitación
-            </p>
+            <p className="text-sm font-semibold text-slate-800 mb-3">Nueva invitación</p>
             <InvitarUsuarioForm onSubmit={handleInvitar} loading={loadingInvitar} />
           </Card>
         )}
@@ -208,7 +169,7 @@ export function EquipoPage() {
         {/* Invitaciones pendientes */}
         {invitaciones.length > 0 && (
           <div>
-            <p style={{ margin: '0 0 10px', fontSize: '12px', fontWeight: 600, color: '#9090b0', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+            <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2.5">
               Invitaciones pendientes
             </p>
             <InvitacionesPendientes
@@ -221,7 +182,7 @@ export function EquipoPage() {
 
         {/* Lista de miembros */}
         <div>
-          <p style={{ margin: '0 0 10px', fontSize: '12px', fontWeight: 600, color: '#9090b0', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+          <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2.5">
             Miembros
           </p>
           <MiembrosList miembros={miembros} userId={userId} />

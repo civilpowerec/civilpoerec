@@ -40,13 +40,13 @@ export function CrearProyectoPage() {
       <div className="py-4">
         <button
           onClick={() => navigate('/onboarding')}
-          className="flex items-center gap-1 text-xs text-[#9090b0] hover:text-[#eeeeff] mb-4 transition-colors"
+          className="flex items-center gap-1 text-xs text-slate-500 hover:text-slate-800 mb-4 transition-colors"
         >
           ← Volver
         </button>
 
-        <h1 className="text-xl font-bold text-[#eeeeff] mb-1">Crear primer proyecto</h1>
-        <p className="text-xs text-[#9090b0] mb-5">
+        <h1 className="text-xl font-bold text-slate-800 mb-1">Crear primer proyecto</h1>
+        <p className="text-xs text-slate-500 mb-5">
           Podrás agregar más detalles (cliente, presupuesto) después.
         </p>
 

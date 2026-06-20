@@ -13,7 +13,7 @@ interface Props {
 export function InvitacionesPendientes({ invitaciones, onCancelar, cancelando }: Props) {
   if (invitaciones.length === 0) {
     return (
-      <p style={{ fontSize: '13px', color: '#55557a', textAlign: 'center', padding: '16px 0' }}>
+      <p className="text-sm text-slate-400 text-center py-4">
         Sin invitaciones pendientes
       </p>
     )
@@ -30,76 +30,44 @@ export function InvitacionesPendientes({ invitaciones, onCancelar, cancelando }:
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+    <div className="flex flex-col gap-2.5">
       {invitaciones.map(inv => (
         <div
           key={inv.id}
-          style={{
-            background: '#0f0f1a',
-            border: '1px solid #2a2a40',
-            borderRadius: '10px',
-            padding: '14px',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '8px',
-          }}
+          className="bg-white border border-slate-200 rounded-xl p-3.5 flex flex-col gap-2 shadow-sm"
         >
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-            <div>
-              <p style={{ margin: 0, fontSize: '13px', fontWeight: 600, color: '#eeeeff' }}>
+          <div className="flex justify-between items-start gap-2">
+            <div className="min-w-0">
+              <p className="text-sm font-semibold text-slate-800 truncate">
                 {inv.nombre ?? inv.email ?? 'Sin nombre'}
               </p>
               {inv.email && inv.nombre && (
-                <p style={{ margin: '2px 0 0', fontSize: '11px', color: '#9090b0' }}>{inv.email}</p>
+                <p className="text-xs text-slate-500 mt-0.5 truncate">{inv.email}</p>
               )}
             </div>
-            <span style={{
-              fontSize: '10px',
-              fontWeight: 700,
-              color: '#f5c518',
-              background: '#2a1f00',
-              padding: '3px 8px',
-              borderRadius: '20px',
-            }}>
+            <span className="text-[10px] font-bold text-amber-700 bg-amber-50 border border-amber-200 px-2 py-1 rounded-full flex-shrink-0">
               PENDIENTE
             </span>
           </div>
 
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+          <div className="flex flex-wrap gap-1.5">
             {inv.roles.map(rol => (
-              <span key={rol} style={{
-                fontSize: '10px',
-                color: '#5b8def',
-                background: '#0a1a35',
-                border: '1px solid #1a3050',
-                padding: '2px 8px',
-                borderRadius: '20px',
-              }}>
+              <span key={rol} className="text-[10px] text-blue-600 bg-blue-50 border border-blue-100 px-2 py-0.5 rounded-full">
                 {ROL_LABELS[rol] ?? rol}
               </span>
             ))}
           </div>
 
-          <p style={{ margin: 0, fontSize: '10px', color: '#55557a' }}>
+          <p className="text-[10px] text-slate-400">
             Expira: {formatExpira(inv.expires_at)}
           </p>
 
-          <div style={{ display: 'flex', gap: '8px', marginTop: '4px' }}>
+          <div className="flex gap-2 mt-1">
             <button
               onClick={() => copiarLink(inv.token)}
-              style={{
-                flex: 1,
-                padding: '8px',
-                borderRadius: '8px',
-                fontSize: '12px',
-                fontWeight: 600,
-                border: '1px solid #2a2a40',
-                background: '#161623',
-                color: '#5b8def',
-                cursor: 'pointer',
-              }}
+              className="flex-1 py-2 rounded-lg text-xs font-semibold border border-slate-300 bg-white text-blue-600 hover:bg-slate-50 cursor-pointer transition-colors"
             >
-              📋 Copiar link
+              Copiar link
             </button>
             <Button
               variant="danger"

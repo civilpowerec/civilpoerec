@@ -10,14 +10,14 @@ interface Props {
 export function MiembrosList({ miembros, userId }: Props) {
   if (miembros.length === 0) {
     return (
-      <p style={{ fontSize: '13px', color: '#55557a', textAlign: 'center', padding: '16px 0' }}>
+      <p className="text-sm text-slate-400 text-center py-4">
         Sin miembros registrados
       </p>
     )
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+    <div className="flex flex-col gap-2">
       {miembros.map(m => (
         <MiembroCard key={m.id} miembro={m} esYo={m.user_id === userId} />
       ))}
