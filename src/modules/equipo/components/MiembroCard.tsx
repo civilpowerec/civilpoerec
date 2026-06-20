@@ -7,14 +7,14 @@ interface Props {
   esYo?: boolean
 }
 
-const ESTADO_COLORS = {
-  activo:   { bg: '#082a1a', border: '#143a22', text: '#2ecc8a', label: 'Activo' },
-  invitado: { bg: '#2a1f00', border: '#5a3a00', text: '#f5c518', label: 'Invitado' },
-  inactivo: { bg: '#1e1e2e', border: '#2a2a40', text: '#55557a', label: 'Inactivo' },
+const ESTADO_CLASSES = {
+  activo:   { badge: 'bg-emerald-50 border border-emerald-200 text-emerald-700', label: 'Activo' },
+  invitado: { badge: 'bg-amber-50 border border-amber-200 text-amber-700',       label: 'Invitado' },
+  inactivo: { badge: 'bg-slate-100 border border-slate-200 text-slate-500',       label: 'Inactivo' },
 }
 
 export function MiembroCard({ miembro, esYo }: Props) {
-  const estadoStyle = ESTADO_COLORS[miembro.estado] ?? ESTADO_COLORS.inactivo
+  const estadoStyle = ESTADO_CLASSES[miembro.estado] ?? ESTADO_CLASSES.inactivo
   const iniciales = (miembro.nombre ?? miembro.email)
     .split(' ')
     .slice(0, 2)
@@ -22,75 +22,35 @@ export function MiembroCard({ miembro, esYo }: Props) {
     .join('')
 
   return (
-    <div style={{
-      background: '#0f0f1a',
-      border: '1px solid #2a2a40',
-      borderRadius: '10px',
-      padding: '14px',
-      display: 'flex',
-      alignItems: 'center',
-      gap: '12px',
-    }}>
-      {/* Avatar */}
-      <div style={{
-        width: '38px',
-        height: '38px',
-        borderRadius: '50%',
-        background: '#1a2a4a',
-        border: '1px solid #2a3a5a',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontSize: '13px',
-        fontWeight: 700,
-        color: '#5b8def',
-        flexShrink: 0,
-      }}>
+    <div className="bg-white border border-slate-200 rounded-xl p-3.5 flex items-center gap-3 shadow-sm">
+      <div className="w-9 h-9 rounded-full bg-blue-50 border border-blue-100 flex items-center justify-center text-sm font-bold text-blue-600 flex-shrink-0">
         {iniciales || '?'}
       </div>
 
-      {/* Info */}
-      <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-          <p style={{ margin: 0, fontSize: '13px', fontWeight: 600, color: '#eeeeff' }}>
+      <div className="flex-1 min-w-0">
+        <div className="flex items-center gap-1.5">
+          <p className="text-sm font-semibold text-slate-800 truncate">
             {miembro.nombre ?? 'Sin nombre'}
           </p>
           {esYo && (
-            <span style={{ fontSize: '9px', color: '#9090b0', background: '#1e1e2e', padding: '2px 6px', borderRadius: '20px' }}>
+            <span className="text-[10px] text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded-full flex-shrink-0">
               Tú
             </span>
           )}
         </div>
-        <p style={{ margin: '2px 0 0', fontSize: '11px', color: '#9090b0', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+        <p className="text-xs text-slate-500 truncate mt-0.5">
           {miembro.email}
         </p>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px', marginTop: '6px' }}>
+        <div className="flex flex-wrap gap-1 mt-1.5">
           {miembro.roles.map(rol => (
-            <span key={rol} style={{
-              fontSize: '10px',
-              color: '#5b8def',
-              background: '#0a1a35',
-              border: '1px solid #1a3050',
-              padding: '2px 8px',
-              borderRadius: '20px',
-            }}>
+            <span key={rol} className="text-[10px] text-blue-600 bg-blue-50 border border-blue-100 px-2 py-0.5 rounded-full">
               {ROL_LABELS[rol] ?? rol}
             </span>
           ))}
         </div>
       </div>
 
-      {/* Estado */}
-      <span style={{
-        fontSize: '10px',
-        fontWeight: 700,
-        color: estadoStyle.text,
-        background: estadoStyle.bg,
-        border: `1px solid ${estadoStyle.border}`,
-        padding: '3px 8px',
-        borderRadius: '20px',
-        flexShrink: 0,
-      }}>
+      <span className={`text-[10px] font-bold px-2 py-1 rounded-full flex-shrink-0 ${estadoStyle.badge}`}>
         {estadoStyle.label}
       </span>
     </div>

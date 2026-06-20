@@ -59,20 +59,23 @@ export function ChecklistOnboarding({ steps }: Props) {
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '12px' }}>
-        <span style={{ fontSize: '12px', color: '#9090b0' }}>
+      <div className="flex justify-between mb-3">
+        <span className="text-xs text-slate-500">
           {completados} de {total} pasos completados
         </span>
-        <span style={{ fontSize: '12px', fontWeight: 600, color: '#5b8def' }}>
+        <span className="text-xs font-semibold text-blue-600">
           {porcentaje}%
         </span>
       </div>
 
-      <div style={{ width: '100%', height: '6px', background: '#1e1e2e', borderRadius: '999px', marginBottom: '20px', overflow: 'hidden' }}>
-        <div style={{ width: `${porcentaje}%`, height: '100%', background: '#5b8def', borderRadius: '999px', transition: 'width 0.5s ease' }} />
+      <div className="w-full h-1.5 bg-slate-200 rounded-full mb-5 overflow-hidden">
+        <div
+          className="h-full bg-blue-500 rounded-full transition-all duration-500"
+          style={{ width: `${porcentaje}%` }}
+        />
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+      <div className="flex flex-col gap-3">
         {pasosFinales.map((paso, index) => (
           <ChecklistStep
             key={paso.id}

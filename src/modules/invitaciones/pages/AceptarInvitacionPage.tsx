@@ -131,9 +131,9 @@ export function AceptarInvitacionPage() {
   if (aceptando) {
     return (
       <AuthLayout>
-        <div style={{ textAlign: 'center', padding: '24px 0' }}>
+        <div className="text-center py-6">
           <Spinner />
-          <p style={{ color: '#9090b0', marginTop: '12px', fontSize: '13px' }}>
+          <p className="text-sm text-slate-500 mt-3">
             Aceptando invitación...
           </p>
         </div>
@@ -143,34 +143,24 @@ export function AceptarInvitacionPage() {
 
   return (
     <AuthLayout>
-      <div style={{ marginBottom: '20px', textAlign: 'center' }}>
-        <p style={{ margin: 0, fontSize: '14px', fontWeight: 600, color: '#eeeeff' }}>
+      <div className="mb-5 text-center">
+        <p className="text-sm font-semibold text-slate-800">
           Te invitaron a unirte
         </p>
         {invitacion?.nombre && (
-          <p style={{ margin: '4px 0 0', fontSize: '12px', color: '#9090b0' }}>
+          <p className="text-xs text-slate-500 mt-1">
             Como: {invitacion.nombre}
           </p>
         )}
       </div>
 
       {/* Tabs login/register */}
-      <div style={{ display: 'flex', gap: '4px', marginBottom: '20px', background: '#161623', borderRadius: '10px', padding: '4px' }}>
+      <div className="flex gap-1 mb-5 bg-slate-100 rounded-xl p-1">
         {(['login', 'register'] as Vista[]).map(v => (
           <button
             key={v}
             onClick={() => setVista(v)}
-            style={{
-              flex: 1,
-              padding: '8px',
-              borderRadius: '8px',
-              fontSize: '13px',
-              fontWeight: 600,
-              border: 'none',
-              background: vista === v ? '#0f0f1a' : 'transparent',
-              color: vista === v ? '#eeeeff' : '#9090b0',
-              cursor: 'pointer',
-            }}
+            className={`flex-1 py-2 rounded-lg text-sm font-semibold border-none transition-colors cursor-pointer ${vista === v ? 'bg-white text-slate-800 shadow-sm' : 'bg-transparent text-slate-500 hover:text-slate-700'}`}
           >
             {v === 'login' ? 'Ya tengo cuenta' : 'Crear cuenta'}
           </button>

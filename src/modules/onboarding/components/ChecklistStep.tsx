@@ -19,78 +19,34 @@ export function ChecklistStep({
 }: Props) {
   const activo = !completed && !disabled
 
+  const borderClass = completed ? 'border-emerald-200' : activo ? 'border-blue-400' : 'border-slate-200'
+  const bgClass = completed ? 'bg-emerald-50' : 'bg-white'
+
   return (
     <div
       onClick={activo ? onClick : undefined}
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: '16px',
-        padding: '16px',
-        borderRadius: '12px',
-        border: `1px solid ${completed ? '#143a22' : activo ? '#5b8def' : '#2a2a40'}`,
-        background: completed ? '#082a1a' : '#0f0f1a',
-        opacity: disabled ? 0.5 : 1,
-        cursor: activo ? 'pointer' : 'default',
-      }}
+      className={`flex items-center gap-4 p-4 rounded-xl border shadow-sm ${borderClass} ${bgClass} ${disabled ? 'opacity-50' : ''} ${activo ? 'cursor-pointer hover:shadow' : 'cursor-default'} transition-shadow`}
     >
-      {/* Círculo */}
-      <div style={{
-        width: '32px',
-        height: '32px',
-        borderRadius: '50%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexShrink: 0,
-        fontWeight: 700,
-        fontSize: '14px',
-        background: completed ? '#2ecc8a' : activo ? '#5b8def' : '#1e1e2e',
-        color: completed ? '#07070f' : activo ? '#ffffff' : '#55557a',
-      }}>
+      <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-sm ${completed ? 'bg-emerald-500 text-white' : activo ? 'bg-blue-600 text-white' : 'bg-slate-200 text-slate-400'}`}>
         {completed ? '✓' : numero}
       </div>
 
-      {/* Texto */}
-      <div style={{ flex: 1, minWidth: 0 }}>
-        <p style={{
-          margin: 0,
-          fontSize: '14px',
-          fontWeight: 600,
-          color: completed ? '#2ecc8a' : activo ? '#eeeeff' : '#55557a',
-          lineHeight: 1.3,
-        }}>
+      <div className="flex-1 min-w-0">
+        <p className={`text-sm font-semibold leading-snug ${completed ? 'text-emerald-700' : activo ? 'text-slate-800' : 'text-slate-400'}`}>
           {title}
         </p>
-        <p style={{
-          margin: '4px 0 0',
-          fontSize: '12px',
-          color: '#9090b0',
-          lineHeight: 1.4,
-        }}>
+        <p className="text-xs text-slate-500 mt-1 leading-snug">
           {description}
         </p>
       </div>
 
-      {/* Badge derecho */}
       {disabled && !completed && (
-        <span style={{
-          fontSize: '9px',
-          fontWeight: 700,
-          color: '#55557a',
-          background: '#1e1e2e',
-          padding: '4px 8px',
-          borderRadius: '20px',
-          flexShrink: 0,
-          whiteSpace: 'nowrap',
-        }}>
+        <span className="text-[9px] font-bold text-slate-400 bg-slate-100 px-2 py-1 rounded-full flex-shrink-0 whitespace-nowrap">
           PRÓXIMAMENTE
         </span>
       )}
       {activo && (
-        <span style={{ color: '#5b8def', fontSize: '20px', flexShrink: 0, lineHeight: 1 }}>
-          ›
-        </span>
+        <span className="text-blue-500 text-xl flex-shrink-0 leading-none">›</span>
       )}
     </div>
   )

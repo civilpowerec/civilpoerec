@@ -43,7 +43,7 @@ export function InvitarUsuarioForm({ onSubmit, loading }: Props) {
   }
 
   return (
-    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+    <form onSubmit={handleSubmit} className="flex flex-col gap-3">
       {error && <Alert variant="error">{error}</Alert>}
 
       <FormField label="Email (opcional)">
@@ -64,23 +64,13 @@ export function InvitarUsuarioForm({ onSubmit, loading }: Props) {
       </FormField>
 
       <FormField label="Roles" required>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '4px' }}>
+        <div className="flex flex-wrap gap-2 mt-1">
           {ROLES_DISPONIBLES.map(rol => (
             <button
               key={rol}
               type="button"
               onClick={() => toggleRol(rol)}
-              style={{
-                padding: '6px 14px',
-                borderRadius: '20px',
-                fontSize: '12px',
-                fontWeight: 600,
-                border: `1px solid ${roles.includes(rol) ? '#5b8def' : '#2a2a40'}`,
-                background: roles.includes(rol) ? '#1a2a4a' : '#161623',
-                color: roles.includes(rol) ? '#5b8def' : '#9090b0',
-                cursor: 'pointer',
-                transition: 'all 0.15s',
-              }}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold border transition-colors cursor-pointer ${roles.includes(rol) ? 'border-blue-500 bg-blue-50 text-blue-600' : 'border-slate-300 bg-white text-slate-500 hover:border-slate-400'}`}
             >
               {ROL_LABELS[rol]}
             </button>
