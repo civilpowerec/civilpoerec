@@ -47,8 +47,8 @@ export function CrearEmpresaPage() {
   return (
     <AppLayout title="Crear empresa">
       <div className="py-4">
-        <h1 className="text-xl font-bold text-[#eeeeff] mb-1">Crea tu empresa</h1>
-        <p className="text-xs text-[#9090b0] mb-5">
+        <h1 className="text-xl font-bold text-slate-800 mb-1">Crea tu empresa</h1>
+        <p className="text-sm text-slate-500 mb-5">
           Serás el administrador de la cuenta. Podrás invitar a tu equipo después.
         </p>
 

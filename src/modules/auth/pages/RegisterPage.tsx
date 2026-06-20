@@ -8,12 +8,8 @@ export function RegisterPage() {
 
   return (
     <AuthLayout>
-      <h2 style={{ margin: '0 0 4px', fontSize: '18px', fontWeight: 700, color: '#eeeeff' }}>
-        Crear cuenta
-      </h2>
-      <p style={{ margin: '0 0 20px', fontSize: '12px', color: '#9090b0' }}>
-        Después de registrarte crearás tu empresa.
-      </p>
+      <h2 className="text-lg font-bold text-slate-800 mb-1">Crear cuenta</h2>
+      <p className="text-sm text-slate-500 mb-6">Después de registrarte crearás tu empresa.</p>
       <RegisterForm onSuccess={() => navigate('/crear-empresa', { replace: true })} />
     </AuthLayout>
   )

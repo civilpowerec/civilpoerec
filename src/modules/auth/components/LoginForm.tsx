@@ -39,7 +39,7 @@ export function LoginForm({ onSuccess, mostrarLinkRegistro = true }: Props) {
   }
 
   return (
-    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
       {error && <Alert variant="error">{error}</Alert>}
 
       <FormField label="Email" required>
@@ -69,9 +69,11 @@ export function LoginForm({ onSuccess, mostrarLinkRegistro = true }: Props) {
       </Button>
 
       {mostrarLinkRegistro && (
-        <p style={{ textAlign: 'center', fontSize: '12px', color: '#55557a' }}>
+        <p className="text-center text-sm text-slate-500">
           ¿No tienes cuenta?{' '}
-          <Link to="/register" style={{ color: '#5b8def' }}>Crear empresa nueva</Link>
+          <Link to="/register" className="text-blue-600 hover:text-blue-700 font-medium transition-colors">
+            Crear empresa nueva
+          </Link>
         </p>
       )}
     </form>
