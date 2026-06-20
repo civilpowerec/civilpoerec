@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
-import { LogOut, Building2 } from 'lucide-react'
+import { LogOut, Building2, LayoutDashboard, Users, BarChart3, Camera } from 'lucide-react'
 import Proyectos from './Proyectos'
+
+type Vista = 'proyectos'
 
 export default function Dashboard() {
   const [email, setEmail] = useState('')
+  const [vista] = useState<Vista>('proyectos')
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
@@ -17,26 +20,43 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-950">
-      <nav className="bg-gray-900 border-b border-gray-800 px-6 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <Building2 className="text-blue-500" size={24} />
-          <span className="text-white font-bold text-lg">CivilPowerEc</span>
+    <div className="min-h-screen bg-gray-950 flex">
+      <aside className="w-16 md:w-56 bg-gray-900 border-r border-gray-800 flex flex-col">
+        <div className="p-4 border-b border-gray-800 flex items-center gap-3">
+          <Building2 className="text-blue-500 shrink-0" size={24} />
+          <span className="text-white font-bold text-sm hidden md:block">CivilPowerEc</span>
         </div>
-        <div className="flex items-center gap-4">
-          <span className="text-gray-400 text-sm">{email}</span>
+        <nav className="flex-1 p-2 space-y-1">
+          <button className="w-full flex items-center gap-3 px-3 py-2 rounded-lg bg-blue-600 text-white text-sm">
+            <LayoutDashboard size={18} className="shrink-0" />
+            <span className="hidden md:block">Proyectos</span>
+          </button>
+          <button className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 text-sm transition-colors">
+            <BarChart3 size={18} className="shrink-0" />
+            <span className="hidden md:block">Avances</span>
+          </button>
+          <button className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 text-sm transition-colors">
+            <Users size={18} className="shrink-0" />
+            <span className="hidden md:block">Personal</span>
+          </button>
+          <button className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 text-sm transition-colors">
+            <Camera size={18} className="shrink-0" />
+            <span className="hidden md:block">Fotos</span>
+          </button>
+        </nav>
+        <div className="p-2 border-t border-gray-800">
           <button
             onClick={handleLogout}
-            className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
+            className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 text-sm transition-colors"
           >
-            <LogOut size={18} />
-            Salir
+            <LogOut size={18} className="shrink-0" />
+            <span className="hidden md:block truncate">{email}</span>
           </button>
         </div>
-      </nav>
+      </aside>
 
-      <main>
-        <Proyectos />
+      <main className="flex-1 overflow-auto">
+        {vista === 'proyectos' && <Proyectos />}
       </main>
     </div>
   )
