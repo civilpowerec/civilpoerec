@@ -45,7 +45,7 @@ export function TenantProvider({ children }: { children: React.ReactNode }) {
           .eq('estado', 'activo')
           .order('created_at', { ascending: true })
           .limit(1)
-          .single()
+          .maybeSingle()
 
         if (miembro) {
           setEmpresaId(miembro.empresa_id)
