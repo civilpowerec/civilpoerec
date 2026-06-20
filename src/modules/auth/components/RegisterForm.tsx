@@ -39,7 +39,7 @@ export function RegisterForm({ onSuccess, mostrarLinkLogin = true }: Props) {
   }
 
   return (
-    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
       {error && <Alert variant="error">{error}</Alert>}
 
       <FormField label="Tu nombre" required>
@@ -80,9 +80,11 @@ export function RegisterForm({ onSuccess, mostrarLinkLogin = true }: Props) {
       </Button>
 
       {mostrarLinkLogin && (
-        <p style={{ textAlign: 'center', fontSize: '12px', color: '#55557a' }}>
+        <p className="text-center text-sm text-slate-500">
           ¿Ya tienes cuenta?{' '}
-          <Link to="/login" style={{ color: '#5b8def' }}>Iniciar sesión</Link>
+          <Link to="/login" className="text-blue-600 hover:text-blue-700 font-medium transition-colors">
+            Iniciar sesión
+          </Link>
         </p>
       )}
     </form>

@@ -20,7 +20,6 @@ export function LoginPage() {
 
     setEmpresaActiva(empresa.empresaId, empresa.roles as RolEmpresa[])
 
-    // Si tiene múltiples roles → selector
     if (empresa.roles.length > 1) {
       navigate('/seleccionar-rol', { replace: true })
       return
@@ -35,9 +34,8 @@ export function LoginPage() {
 
   return (
     <AuthLayout>
-      <h2 style={{ margin: '0 0 20px', fontSize: '18px', fontWeight: 700, color: '#eeeeff' }}>
-        Iniciar sesión
-      </h2>
+      <h2 className="text-lg font-bold text-slate-800 mb-1">Iniciar sesión</h2>
+      <p className="text-sm text-slate-500 mb-6">Accede a tu cuenta de empresa</p>
       <LoginForm onSuccess={handleSuccess} />
     </AuthLayout>
   )

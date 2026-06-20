@@ -9,12 +9,12 @@ export function Input({ error, className = '', ...props }: InputProps) {
   return (
     <input
       className={`
-        w-full bg-[#161623] border rounded-[9px] px-3 py-[10px]
-        text-[#eeeeff] text-sm outline-none transition-all
-        placeholder:text-[#55557a]
+        w-full bg-white border rounded-lg px-3 py-2.5
+        text-slate-800 text-sm outline-none transition-all
+        placeholder:text-slate-400
         ${error
-          ? 'border-[#f07070] bg-[#280a0a]'
-          : 'border-[#2a2a40] focus:border-[#5b8def] focus:bg-[#1e1e2e]'
+          ? 'border-red-400 bg-red-50 focus:border-red-500 focus:ring-2 focus:ring-red-500/10'
+          : 'border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/10'
         }
         ${className}
       `}

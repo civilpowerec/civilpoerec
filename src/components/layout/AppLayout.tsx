@@ -11,16 +11,19 @@ interface AppLayoutProps {
 
 export function AppLayout({ children, title }: AppLayoutProps) {
   return (
-    <div className="min-h-screen bg-[#07070f]">
-      <header className="bg-[#0f0f1a] border-b border-[#2a2a40] px-5 py-4 flex items-center gap-3">
-        <div className="w-7 h-7 bg-[#5b8def] rounded-[7px] flex items-center justify-center text-sm">
-          🏗️
+    <div className="min-h-screen bg-slate-50">
+      <header className="bg-white border-b border-slate-200 px-5 py-3 flex items-center gap-3 shadow-sm">
+        <div className="w-7 h-7 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M2 22V12L12 2l10 10v10" />
+            <path d="M15 22v-6a3 3 0 0 0-6 0v6" />
+          </svg>
         </div>
-        <span className="text-sm font-bold text-[#eeeeff]">CivilPowerEc</span>
+        <span className="text-sm font-bold text-slate-800">CivilPowerEc</span>
         {title && (
           <>
-            <span className="text-[#2a2a40]">/</span>
-            <span className="text-sm text-[#9090b0]">{title}</span>
+            <span className="text-slate-300">/</span>
+            <span className="text-sm text-slate-500">{title}</span>
           </>
         )}
       </header>
