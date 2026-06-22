@@ -8,9 +8,11 @@ interface Props {
   invitaciones: Invitacion[]
   onCancelar: (id: string) => void
   cancelando: string | null
+  onRegenerarLink: (id: string) => Promise<void>
+  regenerando: string | null
 }
 
-export function InvitacionesPendientes({ invitaciones, onCancelar, cancelando }: Props) {
+export function InvitacionesPendientes({ invitaciones, onCancelar, cancelando, onRegenerarLink, regenerando }: Props) {
   if (invitaciones.length === 0) {
     return (
       <p className="text-sm text-slate-400 text-center py-4">
@@ -68,6 +70,13 @@ export function InvitacionesPendientes({ invitaciones, onCancelar, cancelando }:
               className="flex-1 py-2 rounded-lg text-xs font-semibold border border-slate-300 bg-white text-blue-600 hover:bg-slate-50 cursor-pointer transition-colors"
             >
               Copiar link
+            </button>
+            <button
+              onClick={() => onRegenerarLink(inv.id)}
+              disabled={regenerando === inv.id}
+              className="flex-1 py-2 rounded-lg text-xs font-semibold border border-slate-300 bg-white text-slate-600 hover:bg-slate-50 cursor-pointer transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {regenerando === inv.id ? 'Regenerando…' : 'Regenerar link'}
             </button>
             <Button
               variant="danger"

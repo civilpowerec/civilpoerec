@@ -81,6 +81,43 @@ export async function cancelarInvitacion(
   return { ok: true }
 }
 
+// Regenera el token de una invitación pendiente y extiende su expiración
+export async function regenerarLinkInvitacion(
+  empresaId: UUID,
+  invitacionId: UUID,
+): Promise<{ ok: boolean; token?: string; error?: string }> {
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return { ok: false, error: 'No autenticado' }
+
+  const newToken = crypto.randomUUID()
+  const newExpiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString()
+
+  const { data, error } = await supabase
+    .from('invitaciones')
+    .update({
+      token:      newToken,
+      expires_at: newExpiresAt,
+      updated_at: new Date().toISOString(),
+    })
+    .eq('id', invitacionId)
+    .eq('empresa_id', empresaId)
+    .eq('estado', 'pendiente')
+    .select('id')
+
+  if (error) return { ok: false, error: error.message }
+  if (!data || data.length === 0) return { ok: false, error: 'Invitación no encontrada o ya no está pendiente' }
+
+  await registrarAudit({
+    empresaId,
+    accion:     'invitar_miembro',
+    tabla:      'invitaciones',
+    registroId: invitacionId,
+    valorNuevo: { accion: 'regenerar_link' },
+  })
+
+  return { ok: true, token: newToken }
+}
+
 // Obtiene todas las invitaciones de una empresa
 export async function getInvitaciones(empresaId: UUID): Promise<Invitacion[]> {
   const { data } = await supabase
