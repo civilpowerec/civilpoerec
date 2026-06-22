@@ -13,6 +13,7 @@ import { getMiembros } from '@/modules/equipo/services/equipoService'
 import {
   crearInvitacion,
   cancelarInvitacion,
+  regenerarLinkInvitacion,
   getInvitacionesPendientes,
   buildInvitacionLink,
 } from '@/modules/invitaciones/services/invitacionService'
@@ -32,6 +33,7 @@ export function EquipoPage() {
   const [loading, setLoading] = useState(true)
   const [loadingInvitar, setLoadingInvitar] = useState(false)
   const [cancelando, setCancelando] = useState<string | null>(null)
+  const [regenerando, setRegenerando] = useState<string | null>(null)
   const [linkGenerado, setLinkGenerado] = useState<string | null>(null)
   const [error, setError] = useState('')
   const [mostrarFormulario, setMostrarFormulario] = useState(false)
@@ -99,6 +101,24 @@ export function EquipoPage() {
     const nuevas = await getInvitacionesPendientes(empresaId)
     setInvitaciones(nuevas)
     setCancelando(null)
+  }
+
+  async function handleRegenerarLink(id: string) {
+    if (!empresaId) return
+    setRegenerando(id)
+    setLinkGenerado(null)
+    setError('')
+    const result = await regenerarLinkInvitacion(empresaId, id)
+    if (!result.ok || !result.token) {
+      setError(result.error ?? 'Error al regenerar link')
+      setRegenerando(null)
+      return
+    }
+    const link = buildInvitacionLink(result.token)
+    setLinkGenerado(link)
+    const nuevas = await getInvitacionesPendientes(empresaId)
+    setInvitaciones(nuevas)
+    setRegenerando(null)
   }
 
   async function copiarLink(link: string) {
@@ -176,6 +196,8 @@ export function EquipoPage() {
               invitaciones={invitaciones}
               onCancelar={handleCancelar}
               cancelando={cancelando}
+              onRegenerarLink={handleRegenerarLink}
+              regenerando={regenerando}
             />
           </div>
         )}
