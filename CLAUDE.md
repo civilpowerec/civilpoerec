@@ -167,9 +167,13 @@ Merged PRs:
 
 Build: passing. Production: loading. Console: clean.
 
+Process deviation on record:
+
+- PR #8 (`feature/regenerate-invitation-link`) was merged directly on GitHub outside the formal Merge Agent flow, without the `QA APROBADO — MERGE PR #8` phrase. The code is safe (no Supabase, no RLS, no secrets touched) and remains in `main`. Future deviations require `CONFIRMO DESVIARME DEL PROCESO — CONTINUAR`.
+
 Blockers:
 
-- Invitation link invalid bug — `get_invitation_by_token` returns `token_invalido` from frontend even though SQL Editor confirms the token exists; root cause not yet confirmed (likely token mismatch or Vercel env var mismatch — requires Network tab investigation)
+- Invitation link invalid bug — `get_invitation_by_token` returns `token_invalido` from frontend even though SQL Editor confirms the token exists; root cause not yet confirmed (likely token mismatch or Vercel env var mismatch — requires Network tab investigation); **this is priority #1 before any other ticket**
 
 Deferred:
 
