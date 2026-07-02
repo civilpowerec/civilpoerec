@@ -25,7 +25,7 @@ import type { Invitacion, CrearInvitacionInput } from '@/types/invitacion'
 
 export function EquipoPage() {
   const navigate = useNavigate()
-  const { empresaId, roles } = useTenant()
+  const { empresaId, roles, loading: tenantLoading } = useTenant()
 
   const [miembros, setMiembros] = useState<MiembroEquipo[]>([])
   const [invitaciones, setInvitaciones] = useState<Invitacion[]>([])
@@ -41,35 +41,48 @@ export function EquipoPage() {
   // Verificar que el usuario es Admin
   const esAdmin = roles.some(r => can(r, 'invitar_usuarios'))
 
+  // Guard de autorización: espera a que el tenant (empresaId + roles) esté
+  // resuelto antes de decidir. No usa el loading local de datos de la página.
   useEffect(() => {
-    if (!empresaId) return
+    if (tenantLoading || !empresaId) return
 
-    // Si no es admin, redirigir
-    if (!esAdmin && !loading) {
+    if (!esAdmin) {
       navigate('/onboarding', { replace: true })
-      return
     }
+  }, [tenantLoading, empresaId, esAdmin, navigate])
+
+  // Carga de datos: solo cuando el tenant está listo y el usuario es admin.
+  useEffect(() => {
+    if (tenantLoading || !empresaId || !esAdmin) return
+
+    let mounted = true
 
     async function cargar() {
       try {
         const { data: { user } } = await supabase.auth.getUser()
+        if (!mounted) return
         setUserId(user?.id ?? null)
 
         const [miembrosData, invitacionesData] = await Promise.all([
           getMiembros(empresaId!),
           getInvitacionesPendientes(empresaId!),
         ])
+        if (!mounted) return
         setMiembros(miembrosData)
         setInvitaciones(invitacionesData)
       } catch {
-        setError('Error al cargar el equipo')
+        if (mounted) setError('Error al cargar el equipo')
       } finally {
-        setLoading(false)
+        if (mounted) setLoading(false)
       }
     }
 
     cargar()
-  }, [empresaId, esAdmin, loading, navigate])
+
+    return () => {
+      mounted = false
+    }
+  }, [tenantLoading, empresaId, esAdmin])
 
   async function handleInvitar(input: CrearInvitacionInput) {
     if (!empresaId) return
